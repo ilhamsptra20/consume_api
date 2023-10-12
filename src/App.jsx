@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react"
-import { Route, Routes } from "react-router-dom"
-import About from "./About"
 
-const API_KEY = "916b84f078f168c7251f3ecbea3f0237"
-const API_URL = `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}`
+const API_KEY = import.meta.env.VITE_API_KEY
+const API_URL = import.meta.env.VITE_API_BASEURL
 
 function App() {
     const [movies, setMovies] = useState([])
 
     useEffect(() => {
-        fetch(API_URL)
+        fetch(`${API_URL}/movie/now_playing?api_key=${API_KEY}`)
             .then((response) => response.json())
             .then((data) => {
                 // Menggunakan map untuk mengubah data yang diambil
@@ -52,9 +50,6 @@ function App() {
 
     return (
         <div className="App">
-            <Routes>
-                <Route Component={About} path="/about" />
-            </Routes>
             <h1>Film Now Playing</h1>
             <ul>
                 {movies.map((movie) => (
